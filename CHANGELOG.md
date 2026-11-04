@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.1.1 — 2026-11-04
+
+- Treat Linear platform ID resolution as a mapping, not proof that the task has synced to Everhour.
+- Check exact task availability before starting; preserve the current timer when a newly created issue is missing.
+- Document project-level **Resync Tasks**, verification after resync, and non-duplication safeguards.
+- Update setup and troubleshooting guidance for delayed Linear integration sync.
+
 ## 1.1.0 — 2026-11-04
 
 - Require a fresh skill load and live Everhour check before the first actual work request in each new conversation.
