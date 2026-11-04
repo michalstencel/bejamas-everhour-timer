@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 — 2026-11-04
+
+- Prefer verified substantive parent work issues for small Linear subissues, without changing statuses or relationships.
+- Avoid generic grouping containers and silent fallbacks when a newly created parent has not synced.
+- Preserve direct tracking for substantial independent Design/Dev work.
+
 ## 1.1.1 — 2026-11-04
 
 - Treat Linear platform ID resolution as a mapping, not proof that the task has synced to Everhour.
