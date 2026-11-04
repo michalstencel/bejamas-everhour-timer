@@ -45,6 +45,7 @@ Do not switch for status questions, hypothetical ideas, future plans, quoted thi
 
 1. Discover available Everhour tools. On first use verify the signed-in user/team; reuse that result within the session unless the connection changes. If disconnected, give the setup below and perform no timer write.
 2. Resolve the target using the smallest useful search. Prefer an exact issue link/ID; otherwise search task keywords within a verified project. Use recent tasks only as candidates, not proof they were worked on. Resolve platform IDs with the server's documented platform codes. Never construct an Everhour ID from a guess.
+   - A successful `everhour_resolve_platform_ids` call only maps a Linear UUID to its `li:` identifier; it does **not** import the issue or prove it exists in Everhour. Verify the task with `everhour_get_task` or `everhour_search_tasks` before attempting to start a timer.
 3. Match the actual deliverable. Prefer its existing specific task/subissue; use a parent or coordination/refinements task only when it actually describes the work. Never choose a generic bucket solely because no precise match exists. If several tasks remain plausible, list at most three and ask which one; keep the existing timer running. If no match exists, say so and ask for an issue link.
 4. Check current timer immediately before any write. If already on target, make no call to start: restarting the same task can clear its comment. If another agent/app changed the timer, use this fresh state and reassess. A read/write race remains possible; use a conditional write if the tool supports it. When explicitly told that agents are working simultaneously, designate one conversation to control the shared timer; other agents only propose changes. If the running task is outside verified Bejamas scope, do not implicitly stop it: ask whether to replace that specific timer. An explicit request authorizing that replacement permits the switch.
 5. In auto mode, start the uniquely matched, allowed task without another confirmation. In suggest mode, propose the exact destination and wait for approval. An explicit “start/switch to X” already authorizes that precise action within Bejamas scope; it does not override step 4 for an outside-scope running timer. Never infer consent from silence.
@@ -55,6 +56,19 @@ Do not switch for status questions, hypothetical ideas, future plans, quoted thi
 For an explicitly named completed task, allow tracking if Everhour permits it and mention its completed status without reopening it. Do not automatically pick a completed task from inferred work; ask or find the current open equivalent.
 
 Honor explicit stops (“zatrzymaj timer”, “kończę pracę”, “robię przerwę”) after checking current state and scope; do not ask again for the same action within Bejamas scope. For an outside-scope timer, require the user to name that timer or approve the specific stop; a generic stop is insufficient. If already stopped, do nothing. A vague “gotowe” may mean finishing a deliverable rather than ending work: do not stop on that word alone.
+
+## Missing new Linear issues in Everhour
+
+When an issue exists in Linear but is absent from Everhour (including `Task not found` after resolving a valid `li:` ID):
+
+1. Confirm the Linear workspace, project, issue UUID/number, assignee, and status. Compare with the authenticated Everhour team, connected Linear account, and synced project. The project must allow task synchronization; `hasWebhook: false` by itself does not prove a broken connection.
+2. Search the exact issue number and relevant title in the verified Everhour project. An empty search plus a failed `everhour_get_task` means the task is not currently available through Everhour. Do not treat platform-ID resolution as success.
+3. **Do not start a missing task**, create a replacement Everhour task, or silently track a generic parent. Keep the current timer running, with its comment and accumulated time unchanged. Do not alter Linear statuses or assignees, or historical time entries.
+4. Everhour's periodic Linear sync can lag behind newly created or renamed issues. If no dedicated sync tool is available, instruct the user to open **Everhour → Projects → select the affected connected project → Resync Tasks**, then refresh. This is a project-specific sync, not a new task or duplicate. If unavailable, ask an Everhour administrator; do not reauthenticate without evidence that the connection expired.
+5. After the user confirms resync, or after a newly available task is observed, repeat an exact task lookup. Only if the issue exists in the correct project may the agent follow the normal authorization, fresh-current-timer, start, and verification steps above. If still missing, report the blocker without switching.
+6. For multiple new issues, sample both missing and existing tasks before diagnosing a project-wide outage. Never claim a sync completed, a task is available, or a timer switched without a live confirmation.
+
+Official reference: https://support.everhour.com/article/606-connecting-with-linear
 
 ## Examples
 
