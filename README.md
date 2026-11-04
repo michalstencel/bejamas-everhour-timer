@@ -1,12 +1,16 @@
 # Bejamas Everhour Timer
 
-Conversation-driven Everhour tracking for Claude and Codex. Uses official Everhour MCP and existing Linear-linked Bejamas tasks. Current version: **1.1.1**.
+Conversation-driven Everhour tracking for Claude and Codex. Uses official Everhour MCP and existing Linear-linked Bejamas tasks. Current version: **1.1.2**.
 
 Start with [START-HERE.md](START-HERE.md). Add SKILL.md to each chat project's files, or install the skill folder in your client's supported skills directory. Add the authorization example to project instructions. Connect Everhour separately in each client.
 
 ## New conversations
 
 Each new conversation must be able to read the skill and access Everhour tools. It must check live timer state before starting concrete work and report missing setup. No background monitoring or cross-chat lock is provided. Concurrent conversations control one shared timer; designate one controller when working simultaneously.
+
+## Time tracking on parent issues
+
+Keep granular child issues in Linear for checklists and reviews, while tracking time on the nearest substantive parent work task (e.g. Careers, Company, Product Imagery). Do not automatically track generic grouping containers like Sitewide or Operations, or a child when the intended parent has not yet synced. Separately owned substantial work may remain directly trackable.
 
 ## Missing new Linear issues
 
