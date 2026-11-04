@@ -53,6 +53,13 @@ This removes the need to ask for the skill in every message. Tool access and cli
 
 If you use several agents at once, designate one conversation to control the timer. The timer is shared, and the skill does not provide a lock across clients.
 
+## If a new Linear issue is missing in Everhour
+
+1. Check the issue exists in the connected Linear workspace and project.
+2. Verify its availability via `everhour_get_task` or `everhour_search_tasks`. `everhour_resolve_platform_ids` only maps IDs and does not sync tasks.
+3. Keep any existing timer running. In Everhour select **Projects → affected project → Resync Tasks** and reload.
+4. After resync, check the exact task again before starting or switching. If it is still missing, ask the Everhour administrator to check the integration. Do not create a duplicate.
+
 ## If tracking does not activate in a new chat
 
 Check that the new conversation can read SKILL.md, has Everhour tools available, and receives your project authorization. A file attached in another conversation, a CLI installation, or an enabled connector in another client is not proof of access here. Ask the agent to report which of these checks failed.
