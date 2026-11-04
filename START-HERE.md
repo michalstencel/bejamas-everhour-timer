@@ -36,9 +36,9 @@ codex mcp login everhour
 Use project instructions in ChatGPT/Claude, CLAUDE.md in Claude Code, or AGENTS.md in Codex. Append this text to your existing instructions:
 
 ```text
-During Bejamas work, use the bejamas-everhour-timer skill. At the start of a relevant conversation, read its SKILL.md from project files or installed skills. Do not wait for me to invoke it; if the file is unavailable, tell me.
+During Bejamas work, use the bejamas-everhour-timer skill. In every new conversation, before the first actual work request, read its SKILL.md from project files or installed skills. Do not wait for me to invoke it; if the file is unavailable, tell me.
 
-I authorize automatic starting and switching of my Everhour timer between verified Bejamas tasks when the conversation clearly indicates that I am beginning or changing the work I am doing now, and one existing task matches unambiguously. Check the current timer before making a change and briefly confirm the result. If the correct task is already running, do not restart it.
+I authorize automatic starting and switching of my Everhour timer between verified Bejamas tasks when the conversation clearly indicates that I am beginning or changing the work I am doing now, and one existing task matches unambiguously. Before the first work request, verify Everhour access and report the current timer or a concrete tracking limitation. Check the current timer before making a change and briefly confirm the result. If the correct task is already running, do not restart it.
 
 Ask when several tasks could match. Planning and status questions must not change the timer. Do not modify historical time entries or replace a timer outside Bejamas without my approval for that specific timer. If Everhour is unavailable, tell me. Apply “suggest only” and “do not change the timer” instructions immediately.
 ```
@@ -52,3 +52,9 @@ This removes the need to ask for the skill in every message. Tool access and cli
 3. Say: “What are we working on in this project tomorrow?” The timer should remain unchanged.
 
 If you use several agents at once, designate one conversation to control the timer. The timer is shared, and the skill does not provide a lock across clients.
+
+## If tracking does not activate in a new chat
+
+Check that the new conversation can read SKILL.md, has Everhour tools available, and receives your project authorization. A file attached in another conversation, a CLI installation, or an enabled connector in another client is not proof of access here. Ask the agent to report which of these checks failed.
+
+All conversations control the same Everhour timer. Sequential handoffs are supported through a fresh live check; simultaneous work requires one designated timer-controlling conversation. Updating this repository does not automatically replace uploaded project files or installed copies.
